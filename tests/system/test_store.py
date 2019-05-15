@@ -1,6 +1,6 @@
-from starter_code.models.item import ItemModel
-from starter_code.models.store import StoreModel
-from starter_code.tests.base_test import BaseTest
+from models.item import ItemModel
+from models.store import StoreModel
+from tests.base_test import BaseTest
 import json
 
 
@@ -11,7 +11,7 @@ class StoreTest(BaseTest):
                 response = client.post('/store/test')
 
                 self.assertEqual(response.status_code, 201)
-                self.assertDictEqual({'name': 'test', 'items': []}, json.loads(response.data))
+                self.assertDictEqual({'id': 1, 'name': 'test', 'items': []}, json.loads(response.data))
                 self.assertIsNotNone(StoreModel.find_by_name('test'))
 
     def test_create_duplicate_store(self):
@@ -39,7 +39,7 @@ class StoreTest(BaseTest):
                 response = client.get('/store/test')
 
                 self.assertEqual(response.status_code, 200)
-                self.assertDictEqual({'name': 'test', 'items': []}, json.loads(response.data))
+                self.assertDictEqual({'id': 1, 'name': 'test', 'items': []}, json.loads(response.data))
 
 
 
@@ -59,7 +59,7 @@ class StoreTest(BaseTest):
                 response = client.get('/store/test')
 
                 self.assertEqual(response.status_code, 200)
-                self.assertDictEqual({'name': 'test', 'items': [{'name': 'test_item', 'price': 19}]}, json.loads(response.data))
+                self.assertDictEqual({'id': 1, 'name': 'test', 'items': [{'name': 'test_item', 'price': 19}]}, json.loads(response.data))
 
 
     def test_store_list(self):
@@ -69,7 +69,7 @@ class StoreTest(BaseTest):
                 response = client.get('/stores')
 
                 self.assertEqual(response.status_code, 200)
-                self.assertDictEqual({'stores': [{'name': 'test', 'items': []}]}, json.loads(response.data))
+                self.assertDictEqual({'stores': [{'id': 1, 'name': 'test', 'items': []}]}, json.loads(response.data))
 
     def test_store_with_items(self):
         with self.app() as client:
@@ -79,4 +79,4 @@ class StoreTest(BaseTest):
                 response = client.get('/stores')
 
                 self.assertEqual(response.status_code, 200)
-                self.assertDictEqual({'stores': [{'name': 'test', 'items': [{'name': 'test_item', 'price': 19}]}]}, json.loads(response.data))
+                self.assertDictEqual({'stores': [{'id': 1, 'name': 'test', 'items': [{'name': 'test_item', 'price': 19}]}]}, json.loads(response.data))

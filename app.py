@@ -4,10 +4,10 @@ from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt import JWT, JWTError
 
-from starter_code.security import authenticate, identity
-from starter_code.resources.item import Item, ItemList
-from starter_code.resources.store import Store, StoreList
-from starter_code.resources.user import UserRegister
+from security import authenticate, identity
+from resources.item import Item, ItemList
+from resources.store import Store, StoreList
+from resources.user import UserRegister
 
 
 app = Flask(__name__)
@@ -35,7 +35,7 @@ def auth_error(err):
     return jsonify({'message': 'Could not authorize. Did you include a valid Authorization header?'}), 401
 
 if __name__ == '__main__':
-    from starter_code.db import db
+    from db import db
 
     db.init_app(app)
 

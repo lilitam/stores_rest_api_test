@@ -1,6 +1,6 @@
-from starter_code.models.item import ItemModel
-from starter_code.models.store import StoreModel
-from starter_code.tests.base_test import BaseTest
+from models.item import ItemModel
+from models.store import StoreModel
+from tests.base_test import BaseTest
 
 
 class StoreTest(BaseTest):
@@ -35,6 +35,7 @@ class StoreTest(BaseTest):
             store = StoreModel('test')
             store.save_to_db()
             expected = {
+                'id': 1,
                 'name': 'test',
                 'items': []
             }
@@ -42,6 +43,7 @@ class StoreTest(BaseTest):
             item = ItemModel('test_item', 19, 1)
             item.save_to_db()
             expected_with_items = {
+                'id': 1,
                 'name': 'test',
                 'items': [{'name': 'test_item', 'price': 19}]
             }
